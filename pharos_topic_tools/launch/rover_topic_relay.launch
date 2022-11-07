@@ -1,0 +1,35 @@
+<launch>
+	<arg name="udp" default="false"/>
+	<arg name="enable" default="true"/>
+	<arg name="cam" default="false"/>
+
+	<node name="relay_r0" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="master/interface"/>
+		<param name="enable" value="$(arg enable)"/>
+		<param name="udp" value="$(arg udp)"/>
+	</node>
+
+<!-- 	<node name="relay_1" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value=""/>
+		<param name="enable" value="$(arg enable)"/>
+		<param name="udp" value="$(arg udp)"/>
+	</node> -->
+
+<!-- 	<node name="relay_2" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="front_cam/image_tele/compressed"/>
+		<param name="enable" value="$(arg cam)"/>
+		<param name="udp" value="false"/>
+	</node>
+
+	<node name="relay_3" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="left_cam/image_tele/compressed"/>
+		<param name="enable" value="$(arg cam)"/>
+		<param name="udp" value="false"/>
+	</node>
+
+	<node name="relay_4" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="right_cam/image_tele/compressed"/>
+		<param name="enable" value="$(arg cam)"/>
+		<param name="udp" value="false"/>
+	</node> -->
+</launch>

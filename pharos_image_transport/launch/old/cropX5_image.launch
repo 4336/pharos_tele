@@ -1,0 +1,14 @@
+<launch>
+  <arg name="cropX5_enable" default="true"/>
+  <arg name="cropX5_num" default="16"/>
+  <arg name="cropX5_cnt" default="0"/>
+
+  <node pkg="pharos_image_transport" type="cropX5" name="pharos_cropX5$(arg cropX5_cnt)" output="screen">
+    <param name="topic_name" value="/front_cam/image_cropX5$(arg cropX5_cnt)"/>
+    <param name="enable" value="$(arg cropX5_enable)"/>
+    <param name="cropX5_num" value="$(arg cropX5_num)"/>
+    <param name="cropX5_cnt" value="$(arg cropX5_cnt)"/>
+  </node>
+
+  <!-- <include file="$(find pharos_image_transport)/launch/launch.launch"/> -->
+</launch>

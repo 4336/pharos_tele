@@ -1,0 +1,10 @@
+<launch>
+	<!-- <include file="$(find pharos_mster)/launch/pedals.launch" /> -->
+	<arg name="argname" default="true" />
+
+	<node name="slave" pkg="pharos_slave" type="slave.py" output="screen">
+		<param name="paramname" value="$(arg argname)" />
+	</node>
+	<!-- <node name="node_lane_ekf" pkg="pharos_localization" type="lane_ekf.py" output="screen" />	 -->
+
+</launch>

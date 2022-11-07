@@ -1,0 +1,37 @@
+<launch>
+	<arg name="udp" default="true"/>
+	<arg name="enable" default="true"/>
+	<arg name="cam" default="false"/>
+
+	<node name="relay_s0" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="CAN_Gateway"/>
+		<param name="enable" value="$(arg enable)"/>
+		<param name="udp" value="$(arg udp)"/>
+	</node>
+
+	<node name="relay_s1" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="front_cam/image_resize/camera_info"/>
+		<param name="enable" value="false"/>
+		<param name="udp" value="$(arg udp)"/>
+	</node>
+
+<!-- 	<node name="relay_2" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="front_cam/image_tele/compressed"/>
+		<param name="enable" value="$(arg cam)"/>
+		<param name="udp" value="false"/>
+	</node>
+
+	<node name="relay_3" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="left_cam/image_tele/compressed"/>
+		<param name="enable" value="$(arg cam)"/>
+		<param name="udp" value="false"/>
+	</node>
+
+	<node name="relay_4" pkg="pharos_topic_tools" type="relay" output="screen">
+		<param name="input_topic" value="right_cam/image_tele/compressed"/>
+		<param name="enable" value="$(arg cam)"/>
+		<param name="udp" value="false"/>
+	</node> -->
+
+	<!-- <node name="comp2raw" pkg="image_transport" type="republish" output="screen" args="compressed in:=relay/front_cam/image_raw raw out:=relay/front_cam/image_resize/image_raw/compressed"/> -->
+</launch>

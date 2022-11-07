@@ -1,0 +1,39 @@
+
+<!DOCTYPE launch [ <!ENTITY hz "100"> ]>
+<!-- I declared hz value! Do you feel compatable? -->
+
+<launch>
+	<arg name="port" default="T300" />
+<<<<<<< HEAD
+=======
+	<arg name="max_latency" default="0.5" />
+	<arg name="max_vel" default="45" />
+	<arg name="d_gain" default="10" />
+>>>>>>> ad8689411f842b6a709cd720980942d456d1d8e2
+	<arg name="k" default="0.005" />
+	<arg name="a_gain" default="10.00" />
+	<arg name="v_gain" default="0.00" />
+	<arg name="y_gain" default="0.00" />
+	<arg name="max_torque" default="0.15" />
+	<arg name="steering_gain" default="1.0" />
+	<arg name="ping" default="0.0" />
+
+	<node pkg="pharos_master_interface" name="master_driver_node" type="master_driver_node" output="screen">
+		<param name="setPort" value="/dev/$(arg port)" />
+		<param name="setBaudrate" value="115200" />
+		<param name="setHz" value= "&hz;" />
+<<<<<<< HEAD
+=======
+		<param name="max_latency" value="$(arg max_latency)" />
+		<param name="max_vel" value="$(arg max_vel)" />
+		<param name="d_gain" value="$(arg d_gain)" />
+>>>>>>> ad8689411f842b6a709cd720980942d456d1d8e2
+		<param name="k" value="$(arg k)" />
+		<param name="a_gain" value="$(arg a_gain)" />
+		<param name="v_gain" value="$(arg v_gain)" />
+		<param name="y_gain" value="$(arg y_gain)" />
+		<param name="max_torque" value="$(arg max_torque)" />
+		<param name="steering_gain" value="$(arg steering_gain)" />
+		<param name="ping" value="$(arg ping)" />
+	</node>
+</launch>

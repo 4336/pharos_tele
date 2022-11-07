@@ -1,0 +1,15 @@
+<launch>
+	<!-- velodyne conversion -->
+	<include file="$(find pharos_velodyne_launcher)/launch/conversion_nodelet.launch" />
+
+	<!-- Localization -->
+	<include file="$(find pharos_localization)/launch/gps_ekf.launch">
+		<arg name="relative_gps" value="true" />
+	</include>
+
+	<!-- Path planner -->
+	<!-- <include file="$(find pharos_path_planner)/launch/path_planner_lane_keeping.launch" /> -->
+
+	<!-- Behavior Planner -->
+	<!-- <include file="$(find pharos_behavior_planner)/launch/planner.launch" />	 -->
+</launch>

@@ -1,0 +1,34 @@
+<package format="2">
+  <name>pharos_path_prediction</name>
+  <version>0.0.1</version>
+  <description>
+    pharos_path_prediction
+  </description>
+  <author>YJ Kim</author>
+  <maintainer email="cubistc@gmail.com">YJ Kim</maintainer>
+  <license>BSD</license>
+  <url>https://iris.kaist.ac.kr</url>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  
+  <build_depend>pharos_msgs</build_depend>
+  <build_export_depend>pharos_msgs</build_export_depend>
+  <exec_depend>pharos_msgs</exec_depend>
+  
+<!--   <depend>dynamic_reconfigure</depend> -->
+  <depend>roscpp</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+
+<!--   <exec_depend>rqt_console</exec_depend>
+  <exec_depend>rqt_reconfigure</exec_depend>
+
+  <build_depend>cv_bridge</build_depend>
+  <build_export_depend>cv_bridge</build_export_depend>
+  <exec_depend>cv_bridge</exec_depend> -->
+</package>

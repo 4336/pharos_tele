@@ -1,0 +1,178 @@
+tf_num: 17
+#
+tf_1:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'FL_wheel'
+  x: 2.65
+  y: 0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_2:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'FR_wheel'
+  x: 2.65
+  y: -0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_3:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'FL_wheel2'
+  x: 2.65
+  y: 0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_4:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'FR_wheel2'
+  x: 2.65
+  y: -0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_5:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'RL_wheel'
+  x: 0
+  y: 0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_6:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'RR_wheel'
+  x: 0
+  y: -0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_7:
+  frame_id: 'vehicle_frame'
+  child_frame_id: 'roof_cap'
+  x: 1.0
+  y: 0
+  z: 1.5
+  roll: 0
+  pitch: 1
+  yaw: 0
+#
+tf_8:
+  frame_id: 'roof_cap'
+  child_frame_id: 'top_velodyne'
+  x: 0
+  y: 0
+  z: 0.29
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_9:
+  frame_id: 'roof_cap'
+  child_frame_id: 'top_velodyen2'
+  x: 0
+  y: 0
+  z: 0.29
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_10:
+  frame_id: 'roof_cap'
+  child_frame_id: 'left_velodyne'
+  x: 0
+  y: 0.5
+  z: 0.12
+  roll: -15
+  pitch: 0
+  yaw: 0
+#
+tf_11:
+  frame_id: 'roof_cap'
+  child_frame_id: 'left_velodyne2'
+  x: 0
+  y: 0.5
+  z: 0.12
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_12:
+  frame_id: 'roof_cap'
+  child_frame_id: 'right_velodyne'
+  x: 0
+  y: -0.5
+  z: 0.12
+  roll: 15
+  pitch: 0
+  yaw: 0
+#
+tf_13:
+  frame_id: 'roof_cap'
+  child_frame_id: 'right_velodyne2'
+  x: 0
+  y: -0.5
+  z: 0.12
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_14:
+  frame_id: 'roof_cap'
+  child_frame_id: 'front_cam'
+  x: 0.05
+  y: 0
+  z: 0.02
+  roll: -90
+  pitch: 0
+  yaw: -90
+#
+tf_15:
+  frame_id: 'roof_cap'
+  child_frame_id: 'left_cam'
+  x: 0.05
+  y: 0.5
+  z: 0.02
+  roll: -90
+  pitch: 0
+  yaw: -30
+#
+tf_16:
+  frame_id: 'roof_cap'
+  child_frame_id: 'right_cam'
+  x: 0.05
+  y: -0.5
+  z: 0.02
+  roll: -90
+  pitch: 0
+  yaw: -150
+#
+tf_17:
+  frame_id: 'roof_cap'
+  child_frame_id: 'front_cam2'
+  x: 1
+  y: 0
+  z: -0.3
+<<<<<<< HEAD
+  roll: -98
+  pitch: 0
+  yaw: -91
+=======
+  roll: -100
+  pitch: 0
+  yaw: -89
+>>>>>>> ad8689411f842b6a709cd720980942d456d1d8e2
+#

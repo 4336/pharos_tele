@@ -1,0 +1,70 @@
+<launch>
+  <arg name="center_offset" default="false"/>
+  <arg name="x_offset" default="0"/>
+  <arg name="y_offset" default="128"/>
+  <arg name="width" default="1280"/>
+  <arg name="height" default="256"/>
+  <arg name="resize_gain" default="0.5"/>
+  <arg name="rate" default="1.0"/>
+  <arg name="enable" default="true"/>
+  <arg name="rotate" default="true"/>
+  <arg name="mono" default="true"/>
+  <arg name="jpeg_quality" default="80"/>
+
+  <node pkg="pharos_image_transport" type="pretreat" name="pharos_pretreat" output="screen">
+    <param name="message" value="front_cam"/>
+    <param name="rate" value="$(arg rate)"/>
+
+    <param name="center_offset" value="$(arg center_offset)"/>
+    <param name="x_offset" value="$(arg x_offset)"/>
+    <param name="y_offset" value="$(arg y_offset)"/>
+    <param name="crop_width" value="$(arg width)"/>
+    <param name="crop_height" value="$(arg height)"/>
+    <param name="resize_gain" value="$(arg resize_gain)"/>
+
+    <param name="enable" value="$(arg enable)"/>
+    <param name="rotate" value="$(arg rotate)"/>
+    <param name="mono" value="$(arg mono)"/>
+    
+    <param name="jpeg_quality" value="$(arg jpeg_quality)"/>
+
+    <remap from="example" to="pretreat_param"/>
+  </node>
+
+  <arg name="crop_enable" default="true"/>
+  <arg name="crop_num" default="16"/>
+
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="0"/> </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="1"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="2"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="3"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="4"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="5"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="6"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="7"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="8"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="9"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="10"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="11"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="12"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="13"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="14"/>  </include>
+  <include file="$(find pharos_image_transport)/launch/image_crop.launch">
+    <arg name="crop_num" value="16"/> <arg name="crop_cnt" value="15"/>  </include>
+
+</launch>

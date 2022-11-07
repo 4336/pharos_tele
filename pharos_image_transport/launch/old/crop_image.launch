@@ -1,0 +1,14 @@
+<launch>
+  <arg name="crop_enable" default="true"/>
+  <arg name="crop_num" default="16"/>
+  <arg name="crop_cnt" default="0"/>
+
+  <node pkg="pharos_image_transport" type="crop" name="pharos_crop$(arg crop_cnt)" output="screen">
+    <param name="topic_name" value="/front_cam/image_crop$(arg crop_cnt)"/>
+    <param name="enable" value="$(arg crop_enable)"/>
+    <param name="crop_num" value="$(arg crop_num)"/>
+    <param name="crop_cnt" value="$(arg crop_cnt)"/>
+  </node>
+
+  <!-- <include file="$(find pharos_image_transport)/launch/launch.launch"/> -->
+</launch>

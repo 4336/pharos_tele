@@ -1,0 +1,7 @@
+<launch>
+  <arg name="enable" default="true"/>
+
+  <node pkg="pharos_image_transport" type="view" name="pharos_view" output="screen">
+    <!-- <param name="enable" value="$(arg enable)"/> -->
+  </node>
+</launch>

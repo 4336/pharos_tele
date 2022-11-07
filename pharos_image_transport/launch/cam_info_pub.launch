@@ -1,0 +1,27 @@
+<launch>
+	<arg name="input_camera" default="/front_cam/image_tele/h264"/>
+	<arg name="input_info" default="/front_cam/camera_info"/>
+
+	<arg name="output_camera" default="/rviz_cam"/>
+
+	<node pkg="pharos_image_transport" type="cam_info_pub" name="cam_info_pub" output="screen">
+		<param name="input_camera" value="$(arg input_camera)"/>
+		<param name="input_info" value="$(arg input_info)"/>
+
+		<param name="output_camera" value="$(arg output_camera)"/>
+
+		<rosparam command="load" file="$(find pharos_image_transport)/cfg/front_cam.yaml" />
+
+		<param name="roi_x" value="1920"/>
+		<param name="roi_y" value="810"/><!-- 1080 -->
+		<param name="roi_x_offset" value="0"/>
+		<param name="roi_y_offset" value="0"/>
+
+		<param name="fx" value="1"/>
+		<param name="fy" value="1.5"/>
+		<param name="cx" value="1"/>
+		<param name="cy" value="1"/>
+		<param name="Tx" value="0"/>
+		<param name="Ty" value="0"/>
+	</node>
+</launch>

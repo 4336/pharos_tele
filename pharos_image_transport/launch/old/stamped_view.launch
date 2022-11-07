@@ -1,0 +1,7 @@
+<launch>
+  <arg name="image" default="/front_cam/image_tele"/>
+
+  <node pkg="pharos_image_transport" type="stamped_view" name="pharos_view" output="screen">
+    <param name="image" value="$(arg image)"/>
+  </node>
+</launch>

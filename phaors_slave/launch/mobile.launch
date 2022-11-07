@@ -1,0 +1,11 @@
+<launch>
+	<include file="$(find usb_cam)/launch/usb_cam-test.launch" />
+	<include file="$(find pharos_vehicle)/launch/crio.launch" />
+
+	<arg name="argname" default="true" />
+
+	<node name="slave" pkg="pharos_slave" type="slave.py" output="screen">
+		<param name="paramname" value="$(arg argname)" />
+	</node>
+
+</launch>

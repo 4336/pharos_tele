@@ -1,0 +1,24 @@
+<launch>
+	<arg name="delay" default="0.0"/>
+	<arg name="prefix" default=""/>
+	<node name="pharos_topic_relay_rover" pkg="pharos_topic_relay" type="pharos_topic_relay_node" output="screen">
+		<param name="host" value="rover"/>
+		<param name="delay" type ="double" value="$(arg delay)"/> 
+		<param name="prefix" value="$(arg prefix)"/> 
+
+		<param name="SCBADU/time_delay_type" type ="int" value="1"/> <!--1: constant, 2: uniform, 3: gaussian-->
+		<param name="SCBADU/mean_time_delay" type ="double" value="$(arg delay)"/> 
+
+		<!-- <param name="SCBADU/std_dev" type ="double" value="0.06"/>
+		<param name="SCBADU/min_time_delay" type ="double" value="0.0"/>
+		<param name="SCBADU/max_time_delay" type ="double" value="0.0"/> -->
+
+		<param name="CAN/time_delay_type" type ="int" value="1"/> <!--1: constant, 2: uniform, 3: normal-->
+		<param name="CAN/mean_time_delay" type ="double" value="$(arg delay)"/>
+
+		<!-- <param name="CAN/min_time_delay" type ="double" value="0.0"/>
+		<param name="CAN/max_time_delay" type ="double" value="0.0"/>
+		<param name="CAN/std_dev" type ="double" value="0.05"/> -->
+		
+	</node>
+</launch>
