@@ -218,7 +218,9 @@ int main (int argc, char** argv){
 
     ros::Subscriber write_sub_ = nh.subscribe("/slave/interfaceFB", 1, SlaveStateCB);
     ros::Subscriber write_sub = nh.subscribe("/CAN_Gateway", 1, CANinfoCB);
-    ros::Publisher read_pub = nh.advertise<pharos_msgs::SCBADUheader>("/master/interface", 1);
+    std::string pub_topic;
+    pnh.param<std::string>("pub_topic", pub_topic, "/master/interface");
+    ros::Publisher read_pub = nh.advertise<pharos_msgs::SCBADUheader>(pub_topic, 1);
 
 
     try

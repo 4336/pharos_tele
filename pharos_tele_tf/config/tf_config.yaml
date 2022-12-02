@@ -166,13 +166,10 @@ tf_17:
   x: 1
   y: 0
   z: -0.3
-<<<<<<< HEAD
   roll: -98
   pitch: 0
   yaw: -91
-=======
-  roll: -100
-  pitch: 0
-  yaw: -89
->>>>>>> ad8689411f842b6a709cd720980942d456d1d8e2
+  # roll: -100
+  # pitch: 0
+  # yaw: -89
 #

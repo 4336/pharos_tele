@@ -1,0 +1,5 @@
+<launch>
+<rosparam command="load" file="$(find pharos_interface_driver)/config/t300.yaml"/>
+
+ <node name="pharos_t300_driver" pkg="pharos_interface_driver" type="pharos_t300_driver_node" output="screen"/>
+</launch>

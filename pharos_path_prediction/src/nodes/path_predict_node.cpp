@@ -184,7 +184,9 @@ int main(int argc, char **argv)
 
   ros::Subscriber sub_rover = nh.subscribe("/CAN_Gateway", 1, CANGwayCallback);
   ros::Subscriber sub_rover_old = nh.subscribe("/vehicle/state2016", 1, OldCANGwayCallback);
-  ros::Subscriber sub_station = nh.subscribe("/master/interface", 1, SCUBADUCallback);
+  std::string master_interface;
+  pnh.param<std::string>("master_interface", master_interface, "/master/interface");
+  ros::Subscriber sub_station = nh.subscribe(master_interface, 1, SCUBADUCallback);
   // ros::Subscriber sub2 = nh.subscribe("/odom/vehicle", 1, OdomVehicleCallback, ros::TransportHints().udp());
 
   // pub = nh.advertise<nav_msgs::Path>(std::string("/path/predicted"), 1);
