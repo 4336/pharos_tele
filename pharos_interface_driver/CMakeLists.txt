@@ -152,6 +152,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/pharos_interface_driver_node.cpp)
 add_executable(pharos_interface_driver_node src/pharos_interface_driver_node.cpp)
 add_executable(pharos_t300_driver_node src/pharos_t300_driver_node.cpp)
+add_executable(pharos_tlcm_driver_node src/pharos_tlcm_driver_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,6 +165,7 @@ add_executable(pharos_t300_driver_node src/pharos_t300_driver_node.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(pharos_interface_driver_node ${PROJECT_NAME}_gencpp)
 add_dependencies(pharos_t300_driver_node ${PROJECT_NAME}_gencpp)
+add_dependencies(pharos_tlcm_driver_node ${PROJECT_NAME}_gencpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -171,6 +173,7 @@ add_dependencies(pharos_t300_driver_node ${PROJECT_NAME}_gencpp)
 # )
 target_link_libraries(pharos_interface_driver_node ${catkin_LIBRARIES}) # ${Boost_LIBRARIES}
 target_link_libraries(pharos_t300_driver_node ${catkin_LIBRARIES}) # ${Boost_LIBRARIES}
+target_link_libraries(pharos_tlcm_driver_node ${catkin_LIBRARIES}) # ${Boost_LIBRARIES}
 
 #############
 ## Install ##

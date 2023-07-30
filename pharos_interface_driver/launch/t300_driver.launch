@@ -1,5 +1,14 @@
 <launch>
-<rosparam command="load" file="$(find pharos_interface_driver)/config/t300.yaml"/>
+    <arg name="port" default="25"/>
+    <arg name="pedal" default="true"/>
+    <arg name="pedal_port" default="26"/>
+    
+    <node name="pharos_t300_driver" pkg="pharos_interface_driver" type="pharos_t300_driver_node" output="screen">
+        <param name="device_name" value="/dev/input/event$(arg port)"/>
+        <rosparam command="load" file="$(find pharos_interface_driver)/config/t300.yaml"/>
+    </node>
 
- <node name="pharos_t300_driver" pkg="pharos_interface_driver" type="pharos_t300_driver_node" output="screen"/>
+    <include if="$(arg pedal)" file="$(find pharos_interface_driver)/launch/tlcm_driver.launch">
+        <arg name="port" default="$(arg pedal_port)"/>
+    </include>
 </launch>

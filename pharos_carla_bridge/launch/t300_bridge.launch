@@ -1,14 +1,14 @@
 <launch>
-	<arg name="input_topic" default="/t300/state"/>
-	<arg name="output_topic" default="/carla/ego_vehicle/vehicle_control_cmd_manual"/>
-	<arg name="arg1" default="0"/>
+	<arg name="spin_rate" default="100"/>
+
+	<arg name="input_msg" default="/t300/state"/>
+	<arg name="output_msg" default="/carla/ego_vehicle/vehicle_control_cmd_manual"/>
 
 	<node name="pharos_carla_bridge_node" pkg="pharos_carla_bridge" type="pharos_carla_bridge_node" output="screen">
-		<param name="input_topic" value="$(arg input_topic)"/>
-		<param name="output_topic" value="$(arg output_topic)"/>
+		<param name="spin_rate" value="$(arg spin_rate)"/>
 
-		<remap from="test_pub" to="test_pub" />
-		<remap from="test_sub" to="test_sub" />
+		<param name="input_msg" value="$(arg input_msg)"/>
+		<param name="output_msg" value="$(arg output_msg)"/>
 	</node>
 
 	<!-- <include file="$(find pharos_pkg)/launch/pharos_launch.launch">

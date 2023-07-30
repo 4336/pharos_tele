@@ -1,0 +1,9 @@
+<launch>
+	<arg name="master_interface" default="/t300/state"/>
+	<node name="path_prediction" pkg="pharos_path_prediction" type="virtual_path_prediction" output="screen">
+		<param name="master_interface" value="$(arg master_interface)"/>
+		<param name="predict_time" value="5"/>
+		<param name="steering_gain" value="1"/>
+		<param name="track" value="1.8"/>
+	</node>
+</launch>

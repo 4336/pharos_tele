@@ -9,7 +9,7 @@ ros::Publisher pub;
 
 pharos_example::PharosExampleStamped msg_;
 
-int publish_rate_;
+double spin_dt_ = 0;
 
 void Callback(const pharos_example::PharosExampleStamped::ConstPtr& msg)
 {
@@ -29,12 +29,14 @@ int main(int argc, char **argv)
 	ros::NodeHandle nh;
 	ros::NodeHandle pnh("~");
 
-	pnh.param("publish_rate", publish_rate_, 100);
+	int spin_rate;
+	pnh.param("publish_rate", spin_rate, 100);
+	spin_dt_ = 1./spin_rate;
 
 	sub = nh.subscribe("test_sub", 10, Callback); //topic que function
 	pub = nh.advertise<pharos_example::PharosExampleStamped>("test_pub", 10); //topic que
 
-	ros::Rate loop_rate(publish_rate_);
+	ros::Rate loop_rate(spin_rate);
 	int count = 0;
 	while (ros::ok())
 	{

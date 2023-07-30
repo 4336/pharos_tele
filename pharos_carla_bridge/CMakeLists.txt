@@ -153,6 +153,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/pharos_carla_bridge_node.cpp)
 add_executable(pharos_carla_bridge_node src/pharos_carla_bridge_node.cpp)
+add_executable(pharos_carla_map_loader src/pharos_carla_map_loader.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,14 +165,19 @@ add_executable(pharos_carla_bridge_node src/pharos_carla_bridge_node.cpp)
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(pharos_carla_bridge_node ${PROJECT_NAME}_gencpp)
+add_dependencies(pharos_carla_map_loader ${PROJECT_NAME}_gencpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(pharos_carla_bridge_node
-  ${catkin_LIBRARIES}
-  # ${Boost_LIBRARIES}
+${catkin_LIBRARIES}
+# ${Boost_LIBRARIES}
+)
+target_link_libraries(pharos_carla_map_loader
+${catkin_LIBRARIES}
+# ${Boost_LIBRARIES}
 )
 
 #############

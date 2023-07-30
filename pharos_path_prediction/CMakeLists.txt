@@ -40,6 +40,10 @@ add_executable(path_prediction src/nodes/path_predict_node.cpp src/path_predict.
 target_link_libraries(path_prediction ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(path_prediction pharos_msgs_generate_messages_cpp)
 
+add_executable(virtual_path_prediction src/nodes/virtual_path_predict_node.cpp)
+target_link_libraries(virtual_path_prediction ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_dependencies(virtual_path_prediction pharos_msgs_generate_messages_cpp)
+
 # if(CATKIN_ENABLE_TESTING)
 #   find_package(rostest REQUIRED)
 

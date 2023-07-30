@@ -1,0 +1,68 @@
+# T300 evtest
+
+Input driver version is 1.0.1
+Input device ID: bus 0x3 vendor 0x44f product 0xb66e version 0x111
+Input device name: "Thrustmaster Thrustmaster T300RS Racing wheel"
+Supported events:
+  Event type 0 (EV_SYN)
+  Event type 1 (EV_KEY)
+    Event code 288 (BTN_TRIGGER)
+    Event code 289 (BTN_THUMB)
+    Event code 290 (BTN_THUMB2)
+    Event code 291 (BTN_TOP)
+    Event code 292 (BTN_TOP2)
+    Event code 293 (BTN_PINKIE)
+    Event code 294 (BTN_BASE)
+    Event code 295 (BTN_BASE2)
+    Event code 296 (BTN_BASE3)
+    Event code 297 (BTN_BASE4)
+    Event code 298 (BTN_BASE5)
+    Event code 299 (BTN_BASE6)
+    Event code 300 (?)
+  Event type 3 (EV_ABS)
+    Event code 0 (ABS_X)
+      Value  31585
+      Min        0
+      Max    65535
+      Fuzz     255
+    Event code 1 (ABS_Y)
+      Value   1021
+      Min        0
+      Max     1023
+      Fuzz       3
+    Event code 2 (ABS_Z)
+      Value   1021
+      Min        0
+      Max     1023
+      Fuzz       3
+    Event code 5 (ABS_RZ)
+      Value   1019
+      Min        0
+      Max     1023
+      Fuzz       3
+    Event code 16 (ABS_HAT0X)
+      Value      0
+      Min       -1
+      Max        1
+    Event code 17 (ABS_HAT0Y)
+      Value      0
+      Min       -1
+      Max        1
+  Event type 4 (EV_MSC)
+    Event code 4 (MSC_SCAN)
+  Event type 21 (EV_FF)
+    Event code 80 (FF_RUMBLE)
+    Event code 81 (FF_PERIODIC)
+    Event code 82 (FF_CONSTANT)
+    Event code 83 (FF_SPRING)
+    Event code 84 (FF_FRICTION)
+    Event code 85 (FF_DAMPER)
+    Event code 86 (FF_INERTIA)
+    Event code 87 (FF_RAMP)
+    Event code 88 (FF_SQUARE)
+    Event code 89 (FF_TRIANGLE)
+    Event code 90 (FF_SINE)
+    Event code 91 (FF_SAW_UP)
+    Event code 92 (FF_SAW_DOWN)
+    Event code 96 (FF_GAIN)
+    Event code 97 (FF_AUTOCENTER)

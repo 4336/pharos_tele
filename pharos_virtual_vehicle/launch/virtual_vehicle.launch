@@ -1,0 +1,15 @@
+<launch>
+	<arg name="publish_rate" default="30"/>
+	<arg name="arg1" default="0"/>
+
+	<node name="pharos_virtual_vehicle_node" pkg="pharos_virtual_vehicle" type="pharos_virtual_vehicle_node" output="screen">
+		<param name="publish_rate" value="$(arg publish_rate)"/>
+
+		<!-- <remap from="/carla/virtual_cam/control/set_transform" to="/carla/virtual_cam/cam_control/set_transform" /> -->
+	</node>
+
+	<!-- <include file="$(find pharos_pkg)/launch/pharos_launch.launch">
+		<arg name="param1" value="$(arg arg1)" />
+	</include> -->
+
+</launch>

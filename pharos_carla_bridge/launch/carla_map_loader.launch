@@ -1,0 +1,9 @@
+<launch>
+	<arg name="spin_rate" default="1"/>
+
+	<node name="pharos_carla_map_loader" pkg="pharos_carla_bridge" type="pharos_carla_map_loader" output="screen">
+		<param name="spin_rate" value="$(arg spin_rate)"/>
+        <rosparam command="load" file="$(find pharos_carla_bridge)/config/Town07.yaml"/>
+	</node>
+
+</launch>

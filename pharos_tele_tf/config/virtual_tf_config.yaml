@@ -1,0 +1,72 @@
+tf_num: 7
+#
+tf_1:
+  frame_id: 'virtual_vehicle'
+  child_frame_id: 'virtual_vehicle/rear'
+  x: -1.3
+  y: 0
+  z: 0
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_2:
+  frame_id: 'virtual_vehicle'
+  child_frame_id: 'virtual_vehicle/front'
+  x: 1.35
+  y: 0
+  z: 0
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_3:
+  frame_id: 'virtual_vehicle/front'
+  child_frame_id: 'FL_wheel'
+  x: 0
+  y: 0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_4:
+  frame_id: 'virtual_vehicle/front'
+  child_frame_id: 'FR_wheel'
+  x: 0
+  y: -0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_5:
+  frame_id: 'virtual_vehicle/rear'
+  child_frame_id: 'RL_wheel'
+  x: 0
+  y: 0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_6:
+  frame_id: 'virtual_vehicle/rear'
+  child_frame_id: 'RR_wheel'
+  x: 0
+  y: -0.78
+  z: 0.3
+  roll: 0
+  pitch: 0
+  yaw: 0
+#
+tf_7:
+  frame_id: 'virtual_vehicle'
+  child_frame_id: 'third_person_view'
+  x: -4.5
+  y: 0
+  z: 2.8
+  roll: 0
+  pitch: 20.0
+  yaw: 0.0
+#

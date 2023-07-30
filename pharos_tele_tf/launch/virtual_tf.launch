@@ -1,0 +1,7 @@
+<launch>
+	<arg name="spin_rate" default="30"/>
+	<node name="pharos_virtual_tf_node" pkg="pharos_tele_tf" type="pharos_virtual_tf_node" output="screen">
+      	<rosparam command="load" file="$(find pharos_tele_tf)/config/virtual_tf_config.yaml" />
+		<param name="spin_rate" value="$(arg spin_rate)"/>
+	</node>
+</launch>

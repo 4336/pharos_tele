@@ -6,14 +6,30 @@
 #include <math.h>
 
 #include "pharos_interface_driver/ForceFeedback.h"
-#include "pharos_msgs/SCBADUheader.h"
+#include "pharos_msgs/RacingWheelStamped.h"
+
+#define BUTTON_NUM 13
+#define TRIGGER_MIN 1010
+#define TRIGGER_MAX 10
+
+double map(double x, double in_min, double in_max, double out_min, double out_max, bool limit = false) {
+    double temp = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    if(limit) return std::min(std::max(temp, out_min), out_max);
+    else return temp;
+}
+
+double trigger_map(double x){
+    return map(x, TRIGGER_MIN, TRIGGER_MAX, 0, 100, true);
+}
 
 class T300ForceFeedback {
 
 private:
-    ros::Subscriber sub_target;
+    ros::Subscriber sub_target, sub_pedal;
     ros::Publisher pub_state;
     ros::Timer timer;
+
+    pharos_msgs::RacingWheelStamped tlcm_pedal_;
 
     // device info
     int m_device_handle;
@@ -28,7 +44,12 @@ private:
     int m_gear_down_code = BTN_TRIGGER;
     int m_gear_up_code = BTN_THUMB;
 
-    pharos_msgs::SCBADUheader m_state_msg;
+    int m_button_code[BUTTON_NUM] = {ABS_HAT0Y, ABS_HAT0X,
+                            BTN_THUMB2, BTN_PINKIE, BTN_TOP, BTN_TOP2,
+                            BTN_BASE4, BTN_BASE3, BTN_BASE, BTN_BASE2, 300,
+                            BTN_BASE5, BTN_BASE6};
+
+    pharos_msgs::RacingWheelStamped m_state_msg, m_override_msg;
 
     // rosparam
     std::string m_device_name;
@@ -56,7 +77,8 @@ public:
     ~T300ForceFeedback();
 
 private:
-    void targetCallback(const pharos_interface_driver::ForceFeedback &in_target);
+    void targetCallback(const pharos_interface_driver::ForceFeedback::ConstPtr &in_target);
+    void pedalCallback(const pharos_msgs::RacingWheelStamped::ConstPtr &msg);
     void loop(const ros::TimerEvent&);
     int testBit(int bit, unsigned char *array);
     void initDevice();
@@ -68,28 +90,31 @@ private:
 
 T300ForceFeedback::T300ForceFeedback() {
 
-    ros::NodeHandle n;
-    sub_target = n.subscribe("/t300/ff_cmd", 1, &T300ForceFeedback::targetCallback, this);
-    pub_state = n.advertise<pharos_msgs::SCBADUheader>("/t300/state", 1);
+    ros::NodeHandle nh;
+    ros::NodeHandle pnh("~");
+    sub_target = pnh.subscribe("/t300/ff_cmd", 1, &T300ForceFeedback::targetCallback, this);
+    sub_pedal = pnh.subscribe("/tlcm/state", 1, &T300ForceFeedback::pedalCallback, this);
+    pub_state = pnh.advertise<pharos_msgs::RacingWheelStamped>("/t300/state", 1);
 
     m_state_msg.header.stamp = ros::Time::now();
     m_state_msg.header.frame_id = "t300";
+    for(int i=0; i<BUTTON_NUM; i++) m_state_msg.state.buttons.push_back(0);
 
-    n.getParam("device_name", m_device_name);
-    n.getParam("loop_rate", m_loop_rate);
-    n.getParam("max_torque", m_max_torque);
-    n.getParam("min_torque", m_min_torque);
-    n.getParam("brake_position", m_brake_position);
-    n.getParam("brake_torque_rate", m_brake_torque_rate);
-    n.getParam("auto_centering_max_torque", m_auto_centering_max_torque);
-    n.getParam("auto_centering_max_position", m_auto_centering_max_position);
-    n.getParam("eps", m_eps);
-    n.getParam("auto_centering", m_auto_centering);
+    pnh.getParam("device_name", m_device_name);
+    pnh.getParam("loop_rate", m_loop_rate);
+    pnh.getParam("max_torque", m_max_torque);
+    pnh.getParam("min_torque", m_min_torque);
+    pnh.getParam("brake_position", m_brake_position);
+    pnh.getParam("brake_torque_rate", m_brake_torque_rate);
+    pnh.getParam("auto_centering_max_torque", m_auto_centering_max_torque);
+    pnh.getParam("auto_centering_max_position", m_auto_centering_max_position);
+    pnh.getParam("eps", m_eps);
+    pnh.getParam("auto_centering", m_auto_centering);
 
     initDevice();
 
     ros::Duration(1).sleep();
-    timer = n.createTimer(ros::Duration(m_loop_rate), &T300ForceFeedback::loop, this);
+    timer = pnh.createTimer(ros::Duration(m_loop_rate), &T300ForceFeedback::loop, this);
 }
 
 T300ForceFeedback::~T300ForceFeedback() {
@@ -128,28 +153,40 @@ void T300ForceFeedback::loop(const ros::TimerEvent&) {
     double last_position = m_position;
     // get current state
     while (read(m_device_handle, &event, sizeof(event)) == sizeof(event)) {
-        if (event.type == EV_ABS && event.code == m_steering_code) {
-            m_position = (event.value - (m_axis_max + m_axis_min) * 0.5) * 2 / (m_axis_max - m_axis_min); //m_axis_max=65535
-    		m_state_msg.scbadu.steering = ((m_axis_max + m_axis_min) * 0.5 - event.value) / (m_axis_max - m_axis_min) * 900;
-        }
-        if (event.type == EV_ABS && event.code == m_clutch_code) {
-            m_state_msg.scbadu.clutch = (1023 - event.value) / 1023. * 100.;
-        }
-        if (event.type == EV_ABS && event.code == m_brake_code) {
-            m_state_msg.scbadu.brake = (1023 - event.value) / 1023. * 100.;
-        }
-        if (event.type == EV_ABS && event.code == m_accel_code) {
-            m_state_msg.scbadu.accel = (1023 - event.value) / 1023. * 100.;
-        }
-        if (event.type == EV_KEY && event.code == m_gear_down_code) {
-            m_state_msg.scbadu.down = event.value;
-        }
-        if (event.type == EV_KEY && event.code == m_gear_up_code) {
-            m_state_msg.scbadu.up = event.value;
+        if (event.type == EV_ABS){
+            if(event.code == m_steering_code){
+                m_position = (event.value - (m_axis_max + m_axis_min) * 0.5) * 2 / (m_axis_max - m_axis_min); //m_axis_max=65535
+        		m_state_msg.state.steering = ((m_axis_max + m_axis_min) * 0.5 - event.value) / (m_axis_max - m_axis_min) * 900;
+            }else if(event.code == m_clutch_code) m_state_msg.state.clutch = trigger_map(event.value);
+            else if(event.code == m_brake_code) m_state_msg.state.brake = trigger_map(event.value);
+            else if(event.code == m_accel_code) m_state_msg.state.accel = trigger_map(event.value);
+            else if(event.code == m_button_code[0]) m_state_msg.state.buttons[0] =-event.value;
+            else if(event.code == m_button_code[1])m_state_msg.state.buttons[1] = event.value;
+
+        }else if (event.type == EV_KEY){
+            if(event.code == m_gear_down_code) m_state_msg.state.gear_down = event.value;
+            else if(event.code ==  m_gear_up_code) m_state_msg.state.gear_up = event.value;
+            else{
+                for(int i=2; i<BUTTON_NUM; i++){
+                    if(event.code == m_button_code[i]) m_state_msg.state.buttons[i] = event.value;
+                }
+            }
         }
     }
+
     m_state_msg.header.stamp = ros::Time::now();
-    pub_state.publish(m_state_msg);
+
+    if(ros::Time::now() - tlcm_pedal_.header.stamp < ros::Duration(0.1) && 
+    (tlcm_pedal_.state.clutch > 0 || tlcm_pedal_.state.brake > 0 || tlcm_pedal_.state.accel > 0)){ 
+        m_override_msg = m_state_msg;
+        
+        if(tlcm_pedal_.state.clutch > 0) m_override_msg.state.clutch = tlcm_pedal_.state.clutch;
+        if(tlcm_pedal_.state.brake > 0) m_override_msg.state.brake = tlcm_pedal_.state.brake;
+        if(tlcm_pedal_.state.accel > 0) m_override_msg.state.accel = tlcm_pedal_.state.accel;
+        pub_state.publish(m_override_msg); //Override T-LCM Pedal
+    }else{
+        pub_state.publish(m_state_msg);
+    }
 
     if (m_is_brake_range || m_auto_centering) {
         calcCenteringForce(m_torque, m_target, m_position);
@@ -229,17 +266,23 @@ void T300ForceFeedback::uploadForce(const double &position,
 
 
 // get target information of wheel control from ros message
-void T300ForceFeedback::targetCallback(const pharos_interface_driver::ForceFeedback &in_msg) {
+void T300ForceFeedback::targetCallback(const pharos_interface_driver::ForceFeedback::ConstPtr &in_msg) {
 
-    if (m_target.position == in_msg.position && m_target.torque == fabs(in_msg.torque)) {
+    if (m_target.position == in_msg->position && m_target.torque == fabs(in_msg->torque)) {
         m_is_target_updated = false;
 
     } else {
-        m_target = in_msg;
+        m_target = *in_msg;
         m_target.torque = fabs(m_target.torque);
         m_is_target_updated = true;
         m_is_brake_range = false;
     }
+}
+
+
+// get target information of wheel control from ros message
+void T300ForceFeedback::pedalCallback(const pharos_msgs::RacingWheelStamped::ConstPtr &msg) {
+    tlcm_pedal_ = *msg;
 }
 
 
@@ -255,6 +298,7 @@ void T300ForceFeedback::initDevice() {
     m_device_handle = open(m_device_name.c_str(), O_RDWR|O_NONBLOCK);
     if (m_device_handle < 0) {
         std::cout << "ERROR: cannot open device : "<< m_device_name << std::endl;
+        ROS_WARN("Check event port with >> evtest --grab");
         exit(1);
 
     } else {std::cout << "device opened" << std::endl;}
